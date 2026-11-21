@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3]
+[gd_scene load_steps=9 format=3]
 
 [ext_resource type="Script" path="res://scripts/day_night_cycle.gd" id="1_sun"]
 [ext_resource type="Shader" path="res://shaders/leonida_water.gdshader" id="2_water"]
+[ext_resource type="Script" path="res://scripts/terrain_generator.gd" id="3_terrain"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
 sky_top_color = Color(0.22, 0.48, 0.78, 1)
@@ -16,8 +17,10 @@ background_mode = 2
 sky = SubResource("Sky_1")
 tonemap_mode = 3
 fog_enabled = true
-fog_density = 0.0025
+fog_density = 0.0012
 fog_aerial_perspective = 1.0
+ambient_light_color = Color(0.95, 0.88, 0.78, 1)
+ambient_light_sky_contribution = 0.35
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1"]
 render_priority = 0
@@ -36,10 +39,14 @@ environment = SubResource("Environment_1")
 
 [node name="SunLight" type="DirectionalLight3D" parent="."]
 script = ExtResource("1_sun")
-time_of_day = 16.5
+time_of_day = 15.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
 
 [node name="WaterPlane" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_1")
+
+[node name="TerrainMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -75)
+script = ExtResource("3_terrain")

@@ -1,11 +1,11 @@
 class_name DayNightCycle
 extends DirectionalLight3D
 
-@export_range(0.0, 24.0, 0.01) var time_of_day: float = 17.5
+@export_range(0.0, 24.0, 0.01) var time_of_day: float = 15.0
 @export var day_duration_seconds: float = 600.0
 @export var pause_cycle: bool = false
-@export var max_sun_energy: float = 2.2
-@export var azimuth_angle: float = 135.0
+@export var max_sun_energy: float = 3.0
+@export var azimuth_angle: float = 145.0
 
 var sun_color_gradient: Gradient
 
@@ -32,7 +32,7 @@ func _update_lighting() -> void:
 	var normalized_height: float = clampf((sun_height + 0.15) / 1.15, 0.0, 1.0)
 
 	if sun_color_gradient: light_color = sun_color_gradient.sample(normalized_height)
-	light_energy = maxf(sun_height, 0.0) * max_sun_energy
+	light_energy = clampf(sun_height * max_sun_energy, 0.6, max_sun_energy) if sun_height > 0.0 else 0.0
 	visible = sun_height > -0.05
 
 	RenderingServer.global_shader_parameter_set("sun_direction", -global_transform.basis.z)

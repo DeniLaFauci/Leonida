@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3]
+[gd_scene load_steps=10 format=3]
 
 [ext_resource type="Script" path="res://scripts/day_night_cycle.gd" id="1_sun"]
 [ext_resource type="Shader" path="res://shaders/leonida_water.gdshader" id="2_water"]
 [ext_resource type="Script" path="res://scripts/terrain_generator.gd" id="3_terrain"]
+[ext_resource type="Script" path="res://scripts/keyboard_camera.gd" id="4_cam"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1"]
 sky_top_color = Color(0.22, 0.48, 0.78, 1)
@@ -42,7 +43,8 @@ script = ExtResource("1_sun")
 time_of_day = 15.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -22)
+script = ExtResource("4_cam")
 
 [node name="WaterPlane" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_1")
